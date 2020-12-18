@@ -1,0 +1,124 @@
+-- --------------------------------------------------------
+-- Host:                         localhost
+-- Versión del servidor:         5.7.24 - MySQL Community Server (GPL)
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             10.2.0.5599
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Volcando estructura de base de datos para semestral-desa7
+CREATE DATABASE IF NOT EXISTS `semestral-desa7` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `semestral-desa7`;
+
+-- Volcando estructura para tabla semestral-desa7.articulos
+CREATE TABLE IF NOT EXISTS `articulos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(250) NOT NULL,
+  `extracto` varchar(250) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `texto` text NOT NULL,
+  `thumb` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla semestral-desa7.articulos: ~7 rows (aproximadamente)
+/*!40000 ALTER TABLE `articulos` DISABLE KEYS */;
+INSERT INTO `articulos` (`id`, `titulo`, `extracto`, `fecha`, `texto`, `thumb`) VALUES
+	(1, 'Prueba Este', 'Ponte Fino', '2020-12-17 20:45:11', 'leyenda de nose que del texto principal archivo', '4.png'),
+	(2, 'P2', 'T2', '2020-12-18 00:56:09', 'leyendaa urbana', '2.png'),
+	(3, 'p4', 't3', '2020-12-18 00:56:31', 'leyendas urbanas de ultratumba', '3.png'),
+	(4, 'p4', 'prueba paginas', '2020-12-18 03:26:30', 'lelelele', '4.png'),
+	(5, 'salsa', 'salva', '2020-12-18 03:26:48', 'salasi', '5.png'),
+	(6, 'ppp', 'ppp', '2020-12-18 03:27:04', 'ppp', '2.png'),
+	(9, 'nuevo ingreso', 'prueba de nuevo articulo', '2020-12-18 06:26:50', '7 3 esta vivo', '4.png'),
+	(10, 'Dragon Quest', 'pequeÃ±o extracto de prueba', '2020-12-18 06:28:07', 'test de nuevo ingreso y no puede ser 7 3 esta vivo.', '1.png');
+/*!40000 ALTER TABLE `articulos` ENABLE KEYS */;
+
+-- Volcando estructura para procedimiento semestral-desa7.sp_actualizar_articulos
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_actualizar_articulos`(
+	IN `pid` INT,
+	IN `ptitulo` TEXT,
+	IN `pextracto` TEXT,
+	IN `ptexto` TEXT,
+	IN `pthumb` TEXT
+)
+BEGIN
+UPDATE articulos SET titulo = ptitulo, extracto = pextracto, texto = ptexto, thumb = pthumb WHERE id = pid;
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento semestral-desa7.sp_buscar_articulo
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_buscar_articulo`(
+	IN `busqueda` TEXT
+)
+BEGIN
+SELECT * FROM articulos WHERE titulo LIKE busqueda or texto Like busqueda;
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento semestral-desa7.sp_eliminar_articulo
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_eliminar_articulo`(
+	IN `param` INT
+)
+BEGIN
+delete from articulos where id = param;
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento semestral-desa7.sp_ingresar_articulos
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ingresar_articulos`(
+	IN `ptitulo` TEXT,
+	IN `pextracto` TEXT,
+	IN `ptexto` TEXT,
+	IN `pthumb` TEXT
+)
+BEGIN
+INSERT INTO articulos (id, titulo, extracto, texto, thumb) 
+		VALUES (null, ptitulo , pextracto, ptexto, pthumb);
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento semestral-desa7.sp_numero_paginas
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_numero_paginas`()
+BEGIN
+select found_rows() as total;
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento semestral-desa7.sp_select_articulos
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_select_articulos`(
+	IN `inicio` INT,
+	IN `post` INT
+
+
+)
+BEGIN
+select SQL_CALC_FOUND_ROWS * from articulos LIMIT inicio, post;
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento semestral-desa7.sp_select_post
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_select_post`(
+	IN `id` INT
+)
+BEGIN
+select * from articulos where articulos.id = id limit 1;
+END//
+DELIMITER ;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
