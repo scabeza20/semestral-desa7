@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    
     <link rel="stylesheet" href="<?php echo RUTA; ?>/css/estilos.css">
 </head>
 <body>
@@ -24,24 +25,7 @@
                 <ul>
                     <li> <a href="#"><i class="fa fa-github"></i></a> </li>
                     <li> <a href="#"><i class="fa fa-twitter"></i></a> </li>
-                    <li><a href="http://localhost/semestral-desa7/"><i class="fa fa-adjust"></i></a></li>
-                    <li> <a href="<?php echo RUTA."/login.php" ?>">Admin</a></li>
-                    <li><a href="<?php 
-                    if (!isset($_SESSION['admin'])) {
-                        echo RUTA;
-                    }
-                    else {
-                        echo RUTA."config";
-                    }
-                    
-                    ?>"><?php 
-                    if (!isset($_SESSION['admin'])) {
-                        echo "";
-                    }
-                    else {
-                        echo "Editar Publicaciones";
-                    }
-                    ?></a></li>
+                    <li><a href="http://localhost/dark-mode/"><i class="fa fa-adjust"></i></a></li>
                     <!--<li> <a href="#">Contacto<i class="fa fa-envelope"></i></a> </li> -->
 
                 </ul>
